@@ -41,7 +41,19 @@ suite('Functional Tests', function() {
     suite('POST /api/books with title => create book object/expect book object', function() {
       
       test('Test POST /api/books with title', function(done) {
-        //done();
+        chai.request(server)
+        .post('/api/books')
+        .send({
+          title: 'Audio Typing'
+        })
+        .end(function(err,res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.body.title, 'Audio Typing');
+          assert.isNotNull(res.body._id);
+          id = res.body._id;
+          console.log("id has been set as " + id);
+          done();
+        });
       });
       
       test('Test POST /api/books with no title given', function(done) {
