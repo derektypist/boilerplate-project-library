@@ -91,7 +91,12 @@ suite('Functional Tests', function() {
     suite('GET /api/books/[id] => book object with [id]', function(){
       
       test('Test GET /api/books/[id] with id not in db',  function(done){
-        //done();
+        chai.request(server)
+        .get('/api/books/' + 'idthatdoesntexist')
+        .end(function(err, res) {
+          assert.equal(res.body, 'no book exists');
+          done();
+        });
       });
       
       test('Test GET /api/books/[id] with valid id in db',  function(done){
