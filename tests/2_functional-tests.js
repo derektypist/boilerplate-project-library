@@ -100,7 +100,14 @@ suite('Functional Tests', function() {
       });
       
       test('Test GET /api/books/[id] with valid id in db',  function(done){
-        //done();
+        chai.request(server)
+        .get('/api/books/' + id)
+        .end(function(err, res) {
+          assert.equal(res.status, 200);
+          assert.equal(res.body._id, id);
+          assert.equal(res.body.title, 'Audio Typing');
+          done();
+        });
       });
       
     });
